@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/mui.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+</head>
+<body>
+	<div class="login_header">登录</div>
+	<div class="login_main">
+		<ul>
+			<li><input type="tel" v-model="username" placeholder="请输入手机号" /></li>
+			<li><input type="password" v-model="password" placeholder="请输入密码"  /></li>
+			<li><a href="javascript:;" v-on:tap="submit">登录</a></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		mui.plusReady(function(){
+			new Vue({
+				el : '.login_main',
+				data : {
+					user_id : cache('user_id'),
+					username : '',
+					password : ''
+				},
+				mounted : function(){
+					if(this.user_id != null) this.index();
+				},
+				methods : {
+					submit : function(){
+						var obj = this;
+						if(this.username == '' || this.password == ''){
+							plus.nativeUI.alert('帐号或密码不能为空！',null,'提示','确定');
+							return false;
+						}else{
+							var info = plus.push.getClientInfo();
+							var option = {
+								username : this.username,
+								password : this.password,
+								token : info.token,
+								clientid : info.clientid,
+								appid : info.appid,
+								appkey : info.appkey
+							}
+							sendAjax('Login/doLogin',option,function(result){
+								if(result.status == 'success'){
+									obj.username = '';
+									obj.password = '';
+									plus.storage.setItem('user_id',result.user_id);
+									obj.index();
+								}else{
+									plus.nativeUI.alert(result.msg,'','提示','确定');
+								}
+							});
+						}
+					},
+					index : function(){
+						openWindow('index.html');
+					}
+				}
+			});
+		});
+	</script>
+</body>
+
+<!--
+<script>
+	mui.plusReady(function(){
+	
+		if(isLogin()) 
+	
+	});
+	
+	
+	//Maye 登录
+	mui('.login_main').on('tap','#submit',function(){
+	
+		var user_phone = $("#phone").val();
+		var user_password = $("#password").val();
+	
+		if(phone == null || password == null){
+			plus.nativeUI.alert('帐号或密码不能为空','','提示','确定');
+			return false;
+		}
+
+		mui.post(getLocation('Login/doLogin.html'),{'phone':user_phone,'password':user_password},
+			function(data){
+	
+				switch(data.code){
+					case "1":
+						plus.storage.setItem('user_id',data.data.user.id);
+						plus.storage.setItem('peisong_id',data.data.peisong_id);
+						plus.storage.setItem('school_id',data.data.school_id);
+						//打开页面
+						openWindow('index.html',{});
+					break;
+	
+					case "-2":
+						plus.nativeUI.alert('用户名不能为空','','提示','确定');
+					break;
+	
+					case "-3":
+						plus.nativeUI.alert('密码不能为空','','提示','确定');
+					break;
+	
+					case "-4":
+						plus.nativeUI.alert('没有此帐号','','提示','确定');
+					break;
+	
+					case "-5":
+						plus.nativeUI.alert('密码错误','','提示','确定');
+					break;
+	
+					case "-6":
+						plus.nativeUI.alert('登录失败，未查询到配送员信息。','','提示','确定');
+					break;
+	
+					case "-7":
+						plus.nativeUI.alert('帐号在审核中','','提示','确定');
+					break;
+	
+					case "-8":
+						plus.nativeUI.alert('帐号已被禁封','','提示','确定');
+					break;
+				}
+				
+			},"json"
+		);
+	
+
+
+	});
+	
+	
+	
+</script>
+-->
+</html>

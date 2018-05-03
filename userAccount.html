@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/mui.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/userAccount.js"></script>
+</head>
+<body>
+	<header>
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<span>我的账户</span>
+	</header>
+	<div class="userAccount">
+		<div class="userAccount_price">
+			<img src="images/price.png" />
+			<h1>我的余额</h1>
+			<p id="data_price">0.00</p>
+		</div>
+		<div class="userAccount_menu">
+			<ul>
+				<li><a href="javascript:;" data_href="userTixian.html">申请提现</a><i></i></li>
+				<li><a href="javascript:;" data_href="userLiushui.html">查看明细</a><i></i></li>
+			</ul>
+		</div>
+	</div>
+</body>
+
+<script>
+	
+	
+	//Maye 获取 页面数据信息
+	mui.plusReady(function(){
+	
+		//验证是否登录
+		if(!isLogin()) openWindow('login.html');
+
+		loadData();
+
+		document.addEventListener('reload',function(){
+			loadData();
+		});
+
+		function loadData(){
+			var peisong = getLgoin();
+			var peisong_id = peisong.peisong_id;
+	
+			mui.post(getLocation('Index/getPrice.html'),{'peisong_id':peisong_id },
+				function(data){
+	
+					if(data.code == '1'){
+						
+						var data_price = data.data.price == null ? '0.00' : data.data.price;
+						
+						$("#data_price").html(data_price);
+					
+					}else{
+						
+						plus.nativeUI.alert(data.msg,'','提示','确定');
+						
+					}
+					
+				},"json"
+			);
+		}
+		
+	
+	});
+	
+</script>
+
+</html>

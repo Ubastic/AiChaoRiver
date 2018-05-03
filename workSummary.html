@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/mui.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+   	<script type="text/javascript" src="js/dropload.min.js"></script>
+   	<script type="text/javascript" src="js/vue.min.js"></script>
+    <link rel="stylesheet" href="css/dropload.css" />
+</head>
+<body>
+	<header>
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<span>工作汇总</span>
+	</header>
+	<div class="workSummary">
+		<ul>
+			<template v-for="(value,key) in list">
+			<li>
+				<p>{{value.datetime}}</p>
+				<p>{{value.count}}&nbsp;单</p>
+				<div class="clear"></div>
+			</li>
+			</template>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : '.workSummary',
+			data : {
+				user_id : null,
+				list : []
+			},
+			mounted : function(){
+				this.user_id = plus.storage.getItem('user_id');
+				this.loadData();
+			},
+			methods : {
+				loadData : function(){
+					var page = 0;
+					var obj = this;
+	       			$('.dropload-down').remove();
+	       			$('.workSummary').dropload({
+						scrollArea : window,
+						loadDownFn : function(me){
+							page++;
+							var option = {
+			        			user_id : obj.user_id,
+								page : page
+							};
+							sendAjax('User/workSummary',option,function(result){
+								if(result.list.length > 0){
+									for(var i = 0;i < result.list.length;i++){
+										obj.list.push(result.list[i]);
+									}
+								}else{
+									me.lock();
+									me.noData();
+								}
+								me.resetload();
+							},false);
+						}
+					});
+				}
+			}
+		});
+	</script>
+</body>
+</html>

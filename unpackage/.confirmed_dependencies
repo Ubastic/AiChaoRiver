@@ -1,0 +1,159 @@
+{
+  "login.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/common.css",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "js/init.js"
+    ],
+    "refer": [
+      "index.html"
+    ]
+  },
+  "index.html": {
+    "resources": [
+      "images/menu.png",
+      "css/common.css",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/index.js",
+      "images/time.png",
+      "js/dropload.min.js",
+      "js/template.js",
+      "css/dropload.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "js/init.js"
+    ],
+    "refer": [
+      "changePassword.html",
+      "userAccount.html",
+      "workSummary.html",
+      "signRecord.html",
+      "historyTask.html",
+      "taskHome.html"
+    ]
+  },
+  "changePassword.html": {
+    "resources": [
+      "css/common.css",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ],
+    "refer": [
+      "login.html"
+    ]
+  },
+  "userLiushui.html": {
+    "resources": [
+      "js/userLiushui.js",
+      "css/mui.min.css",
+      "js/dropload.min.js",
+      "/css/dropload.css",
+      "css/common.css",
+      "css/style.css",
+      "css/dropload.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "js/init.js",
+      "fonts/mui.ttf"
+    ],
+    "refer": []
+  },
+  "userAccount.html": {
+    "resources": [
+      "images/price.png",
+      "images/right.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/userAccount.js",
+      "css/common.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "js/init.js",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "userLiushui.html",
+      "userTixian.html"
+    ]
+  },
+  "workSummary.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/common.css",
+      "css/style.css",
+      "css/dropload.css",
+      "js/dropload.min.js",
+      "js/mui.min.js",
+      "js/init.js"
+    ],
+    "refer": []
+  },
+  "userTixian.html": {
+    "resources": [
+      "css/mui.min.css",
+      "css/common.css",
+      "css/style.css",
+      "js/mui.min.js",
+      "js/init.js",
+      "fonts/mui.ttf",
+      "js/userAccount.js"
+    ],
+    "refer": [
+      "userLiushui.html"
+    ]
+  },
+  "signRecord.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/dropload.css",
+      "js/signRecord.js",
+      "js/jquery.min.js",
+      "js/dropload.min.js",
+      "js/mui.min.js",
+      "css/common.css",
+      "js/init.js",
+      "css/style.css",
+      "js/template.js"
+    ],
+    "refer": []
+  },
+  "historyTask.html": {
+    "resources": [
+      "images/time.png",
+      "js/jquery.min.js",
+      "js/dropload.min.js",
+      "js/mui.min.js",
+      "css/common.css",
+      "js/init.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/template.js",
+      "css/dropload.css",
+      "js/historyTask.js"
+    ]
+  },
+  "taskHome.html": {
+    "resources": [
+      "css/common.css",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "css/dropload.css",
+      "js/taskHome.js",
+      "js/jquery.min.js",
+      "js/dropload.min.js",
+      "js/mui.min.js",
+      "js/init.js",
+      "js/template.js",
+      "images/time.png"
+    ]
+  }
+}

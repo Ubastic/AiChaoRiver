@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/mui.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/userAccount.js"></script>
+</head>
+<body>
+	<header>
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<span>申请提现</span>
+	</header>
+	<div class="userTixian">
+		<p>当前可提现金额&nbsp;<span id="data_price">0.00</span>&nbsp;元</p>
+		<div class="userTixian_main">
+			<ul>
+				<li><input type="text" id="price" placeholder="请输入提现金额" /></li>
+				<li><input type="text" id="alipay_accounts" placeholder="请输入支付宝帐号" /></li>
+				<li><input type="text" id="alipay_name" placeholder="请输入支付宝姓名" /></li>
+				<li><a href="javascript:;" id="submit">申请提现</a></li>
+			</ul>
+		</div>
+		<p style="color: #999;margin-top: 20px;">提现会在48小时之内到账</p>
+	</div>
+</body>
+
+<script>
+
+	//Maye 获取 页面数据信息
+	mui.plusReady(function(){
+
+		//验证是否登录
+		if(!isLogin()) openWindow('login.html');
+
+		var peisong = getLgoin();
+		var peisong_id = peisong.peisong_id;
+
+		mui.post(getLocation('Index/getPrice.html'),{'peisong_id':peisong_id },
+			function(data){
+
+				if(data.code == '1'){
+					
+					var data_price = data.data.price == null ? '0.00' : data.data.price;
+					
+					$("#data_price").html(data_price);
+				
+				}else{
+					
+					plus.nativeUI.alert(data.msg,'','提示','确定');
+					
+				}
+				
+			},"json"
+		);
+	
+	
+		//Maye 提现申请
+		mui('.userTixian').on('tap','#submit',function(){
+		
+			var peisong_price = $("#price").val();
+			var alipay_accounts = $("#alipay_accounts").val();
+			var alipay_name = $("#alipay_name").val();
+			
+
+	
+			var peisong = getLgoin();
+			var peisong_id = peisong.peisong_id;
+			
+			plus.nativeUI.confirm('确定提现吗？',function(e){
+				if(e.index == 0){
+					
+					doTiXian(peisong_id,peisong_price,alipay_accounts,alipay_name);
+					
+				}
+			},'提示',['是','否']);
+		
+	
+		});
+		
+		//Maye 提现 核心函数
+		function doTiXian(peisong_id,peisong_price,alipay_accounts,alipay_name){
+			
+			mui.post(getLocation('Index/doConfigCash.html'),{'peisong_id':peisong_id , 'price':peisong_price , 'alipay_accounts':alipay_accounts , "alipay_name":alipay_name},
+				function(data){
+	
+					if(data.code == '1'){
+	
+						var w = plus.webview.getWebviewById('userAccount.html');
+						if(w != null) mui.fire(w,'reload');
+						
+						plus.webview.currentWebview().close();
+	
+					}else{
+						
+						plus.nativeUI.alert(data.msg,'','提示','确定');
+						
+					}
+					
+				},"json"
+			);
+		
+		}
+	
+	
+	});
+		
+	
+
+	
+</script>
+
+</html>

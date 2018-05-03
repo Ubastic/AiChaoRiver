@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/mui.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+   	<script type="text/javascript" src="js/dropload.min.js"></script>
+    <link rel="stylesheet" href="css/dropload.css" />
+    <script type="text/javascript" src="js/template.js"></script>
+    <script type="text/javascript" src="js/taskHome.js"></script>
+    <style>
+    	.historyTask{
+    		background: #eee;
+    	}
+    	header i{
+    		position: absolute;
+    		right: 10px;
+    		top: 0px;
+    		color: #fff;
+    		font-style: normal;
+    		display: block;
+    		width: auto;
+    		height: 50px;
+    		line-height: 50px;
+    	}
+    </style>
+</head>
+<body>
+	<header>
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<span>任务大厅</span>
+		<i class="reload">刷新</i>
+	</header>
+	<div class="historyTask">
+		<ul></ul>
+		<script id="list" type="text/html">
+			{{each list as value key}}
+			<li>
+				<div class="historyTask_price"><span>{{value.pei_price_total}}</span>&nbsp;元</div>
+				{{if value.pei_time == 1}}
+				<div class="historyTask_time"><i></i>要求&nbsp;<span>尽快送达</span></div>
+				{{else}}
+				<div class="historyTask_time_y"><i>预</i>要求&nbsp;<span>{{value.pei_time}}</span></div>
+				{{/if}}
+				<div class="historyTask_qh">
+					<span>取货</span>
+					<div class="historyTask_qh_main">
+						<h1>{{value.store_name}}</h1>
+						<p>{{value.store_address}}</p>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div class="historyTask_qh" style="margin-top: 20px;">
+					<span>送货</span>
+					<div class="historyTask_qh_main">
+						<h1 style="line-height: 50px;">{{value.user_address.address}}</h1>
+					</div>
+				</div>
+				<div class="historyTask_qh" style="margin-top: 20px;">
+					<span>时间</span>
+					<div class="historyTask_qh_main">
+						<h1 style="line-height: 50px;" id="add_time_{{value.id}}" class="add_time" data_time="{{value.add_time}}">00:00:00</h1>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<a href="javascript:;" order_id="{{value.id}}" class="orderac success">抢单</a>
+				<div class="clear"></div>
+			</li>
+			{{/each}}
+		</script>
+	</div>
+</body>
+</html>
